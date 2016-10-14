@@ -65,9 +65,13 @@ passport.deserializeUser(function (user, done) {// Delete user object
 });
 
 // Routes
+app.get('/test/flip-move', function(req, res) {
+	res.render('test-flip-move');
+})
 
 app.get('/', routes.login);
 app.post('/login', function(req, res, next) {
+  console.log(req.body)
   passport.authenticate('local', function(err, user, info) {
     if (err) { return next(err); }
     if (!user) { return res.redirect('/login'); }
@@ -88,6 +92,10 @@ app.get('/users', routes.user);
 app.get('/logout', function (req, res) {
     req.logout();
     res.redirect('/');
+});
+app.post('/test/send/json', function(req, res){
+    console.log(req.body);
+    res.json(req.body)
 });
 
 function isLoggedIn(req, res, next) {

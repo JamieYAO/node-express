@@ -1,6 +1,6 @@
 body
 	h1 Login
-	form(action="/login" method="post")
+	form(action="/test/send/json" method="post")
 		div
 			label Username
 			input(type="text" name="username" placeholder="admin")
@@ -9,3 +9,23 @@ body
 			input(type="password" name="password" placeholder="123")
 		div
 			input(type="submit" value="Log In")
+	button(onClick="onClicked()") submit
+		script.
+			var data = {
+				'name': 'test',
+				'obj': {
+					'b': '1'
+				},
+				'value': 'Json'
+			}
+			function onClicked() {
+				fetch('/test/send/json', {
+					method: 'POST',
+					headers: {
+					//This is the line we need for sending this data
+						'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
+					},
+					//mode : 'no-cors',
+					body: JSON.stringify(data)
+				})
+			}
